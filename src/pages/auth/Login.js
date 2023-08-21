@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../redux/actions/authActions";
 import "./Login.css";
+import { NavLink } from "react-router-dom";
 
 const Login = ({ loginUser, isAuthenticated }) => {
   const [email, setUsername] = useState("");
@@ -22,7 +22,17 @@ const Login = ({ loginUser, isAuthenticated }) => {
     event.preventDefault();
     try {
       await loginUser({ email, password });
-      if (!isAuthenticated) {
+
+      if (isAuthenticated) {
+        toast.success("Login successful!", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+      } else {
         toast.error("Login failed. Please check your credentials.", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
@@ -73,9 +83,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
               <span className="button__text">Log In Now</span>
               <i className="button__icon fas fa-chevron-right"></i>
             </button>
-            <div>
-              Have no account? <NavLink to="/register">Register</NavLink>
-            </div>
+            <div>Have no account? <NavLink to="/register">Register</NavLink></div>
           </form>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { authAPI } from "../../services/api";
+import authAPI from "../../services/api";
 import history from "../../utils/history";
 import * as types from "./types";
 
@@ -18,15 +18,15 @@ export const loginFailure = (error) => {
 
 export const registerSuccess = () => {
   return {
-    type: types.REGISTER_SUCCESS
-  };
+    type: types.REGISTER_SUCCESS,
+  }
 };
 
 export const registerFailure = (error) => {
   return {
     type: types.REGISTER_FAILURE,
     payload: error
-  };
+  }
 };
 
 export const loginUser = (credentials) => {
@@ -84,13 +84,5 @@ export const registerUser = (registration) => {
     } catch (error) {
       dispatch(registerFailure(error));
     }
-  };
-};
-
-export const logoutUser = () => {
-  return (dispatch) => {
-    localStorage.removeItem("token");
-    dispatch({ type: types.LOGOUT });
-    history.push("/login");
   };
 };
