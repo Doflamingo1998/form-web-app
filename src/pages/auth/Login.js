@@ -83,7 +83,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
               <span className="button__text">Log In Now</span>
               <i className="button__icon fas fa-chevron-right"></i>
             </button>
-            <p>Have no account? <NavLink to="/register">Register</NavLink></p>
+            <p className="register-0">Have no account? <NavLink to="/register">Register</NavLink></p>
           </form>
         </div>
       </div>
