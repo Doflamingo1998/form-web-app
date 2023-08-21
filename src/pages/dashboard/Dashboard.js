@@ -3,9 +3,10 @@ import Modal from "react-modal";
 import { connect } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createSurvey } from "../../redux/actions/surveyActions";
 import "./Dashboard.css";
 
-const Dashboard = ({ isAuthenticated }) => {
+const Dashboard = ({ createSurvey }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [newSurveyTitle, setNewSurveyTitle] = useState("");
   const [newSurveyDescription, setNewSurveyDescription] = useState("");
@@ -20,8 +21,25 @@ const Dashboard = ({ isAuthenticated }) => {
     setNewSurveyDescription("");
   };
 
-  const handleNewSurveySubmit = () => {
-    if (isAuthenticated) {
+  const handleNewSurveySubmit = async () => {
+    try {
+      if (newSurveyTitle.trim() === "" || newSurveyDescription.trim() === "") {
+        toast.error("Please fill out all fields.", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+        return;
+      }
+
+      await createSurvey({
+        title: newSurveyTitle,
+        description: newSurveyDescription
+      });
+
       toast.success("New survey added successfully!", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -30,8 +48,11 @@ const Dashboard = ({ isAuthenticated }) => {
         pauseOnHover: true,
         draggable: true
       });
-    } else {
-      toast.error("Failed to add new survey. Please log in first.", {
+
+      closeModal();
+    } catch (error) {
+      console.error("Error creating survey:", error);
+      toast.error("Failed to add new survey. Please try again later.", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
         hideProgressBar: false,
@@ -40,8 +61,6 @@ const Dashboard = ({ isAuthenticated }) => {
         draggable: true
       });
     }
-
-    closeModal();
   };
 
   return (
@@ -119,4 +138,8 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.isAuthenticated
 });
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = (dispatch) => ({
+  createSurvey
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

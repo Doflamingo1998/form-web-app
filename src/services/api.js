@@ -12,11 +12,13 @@ const apiEndpoints = {
   login: "/auth/login",
   validateToken: "/validate-token",
   register: "/auth/register",
+  createSurvey: "/surveys"
 };
 
 const authAPI = {
   login: async (credentials) => {
     try {
+      console.log("Login: ", credentials);
       const response = await instance.post(apiEndpoints.login, credentials);
       return response.data;
     } catch (error) {
@@ -49,4 +51,15 @@ const authAPI = {
   }
 };
 
-export default authAPI;
+const surveyAPI = {
+  createSurvey: async (survey) => {
+    try {
+      const response = await instance.post(apiEndpoints.createSurvey, survey);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  }
+};
+
+export { authAPI, surveyAPI };
