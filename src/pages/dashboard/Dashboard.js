@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createSurvey, listSurvey } from "../../redux/actions/surveyActions";
 import "./Dashboard.css";
 
-const Dashboard = ({ isAuthenticated }) => {
+const Dashboard = ({ createSurvey, listSurvey, surveys }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [newSurveyTitle, setNewSurveyTitle] = useState("");
   const [newSurveyDescription, setNewSurveyDescription] = useState("");
@@ -20,8 +21,25 @@ const Dashboard = ({ isAuthenticated }) => {
     setNewSurveyDescription("");
   };
 
-  const handleNewSurveySubmit = () => {
-    if (isAuthenticated) {
+  const handleNewSurveySubmit = async () => {
+    try {
+      if (newSurveyTitle.trim() === "" || newSurveyDescription.trim() === "") {
+        toast.error("Please fill out all fields.", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+        return;
+      }
+
+      await createSurvey({
+        title: newSurveyTitle,
+        description: newSurveyDescription
+      });
+
       toast.success("New survey added successfully!", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
@@ -30,8 +48,11 @@ const Dashboard = ({ isAuthenticated }) => {
         pauseOnHover: true,
         draggable: true
       });
-    } else {
-      toast.error("Failed to add new survey. Please log in first.", {
+
+      closeModal();
+      await listSurvey();
+    } catch (error) {
+      toast.error("Failed to add new survey. Please try again later.", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
         hideProgressBar: false,
@@ -40,9 +61,11 @@ const Dashboard = ({ isAuthenticated }) => {
         draggable: true
       });
     }
-
-    closeModal();
   };
+
+  useEffect(() => {
+    listSurvey();
+  }, [listSurvey]);
 
   return (
     <main className="main">
@@ -58,24 +81,19 @@ const Dashboard = ({ isAuthenticated }) => {
           </button>
         </div>
         <div className="survey-list">
-          <div className="survey-card">
-            <h2 className="survey-card__title">Survey Title 1</h2>
-            <p className="survey-card__description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
-          <div className="survey-card">
-            <h2 className="survey-card__title">Survey Title 2</h2>
-            <p className="survey-card__description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </p>
-          </div>
+          {surveys.map((survey) => (
+            <div className="survey-card" key={survey.id}>
+              <h2 className="survey-card__title">{survey.title}</h2>
+              <p className="survey-card__description">{survey.description}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
+        ariaHideApp={false}
         className="modal"
         overlayClassName="overlay"
       >
@@ -115,8 +133,15 @@ const Dashboard = ({ isAuthenticated }) => {
   );
 };
 
+const mapDispatchToProps = {
+  createSurvey,
+  listSurvey
+};
+
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.isAuthenticated
+  surveys: Array.isArray(state.survey.surveys.data)
+    ? [...state.survey.surveys.data]
+    : []
 });
 
-export default connect(mapStateToProps)(Dashboard);
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

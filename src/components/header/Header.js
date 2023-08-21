@@ -13,7 +13,7 @@ const Header = ({ userName }) => {
 };
 
 const mapStateToProps = (state) => ({
-  userName: state.user.name
+  userName: state.auth.user.name
 });
 
 export default connect(mapStateToProps)(Header);

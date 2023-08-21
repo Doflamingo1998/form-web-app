@@ -1,4 +1,4 @@
-import authAPI from "../../services/api";
+import { authAPI } from "../../services/api";
 import history from "../../utils/history";
 import * as types from "./types";
 
@@ -14,19 +14,6 @@ export const loginFailure = (error) => {
     type: types.LOGIN_FAILURE,
     payload: error
   };
-};
-
-export const registerSuccess = () => {
-  return {
-    type: types.REGISTER_SUCCESS,
-  }
-};
-
-export const registerFailure = (error) => {
-  return {
-    type: types.REGISTER_FAILURE,
-    payload: error
-  }
 };
 
 export const loginUser = (credentials) => {
@@ -61,6 +48,14 @@ export const checkAuthStatus = () => {
     } else {
       dispatch(loginFailure("Token not found"));
     }
+  };
+};
+
+export const logoutUser = () => {
+  return (dispatch) => {
+    localStorage.removeItem("token");
+    dispatch({ type: types.LOGOUT });
+    history.push("/login");
   };
 };
 

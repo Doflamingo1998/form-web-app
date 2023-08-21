@@ -23,16 +23,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
     try {
       await loginUser({ email, password });
 
-      if (isAuthenticated) {
-        toast.success("Login successful!", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-        });
-      } else {
+      if (!isAuthenticated) {
         toast.error("Login failed. Please check your credentials.", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 3000,
@@ -92,7 +83,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.isAuthenticated
+  isAuthenticated: state.auth.isAuthenticated
 });
 
 const mapDispatchToProps = {

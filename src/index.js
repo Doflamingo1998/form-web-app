@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 import App from "./App";
 import "./index.css";
 import { checkAuthStatus } from "./redux/actions/authActions";
-import rootReducer from "./redux/reducers/authReducer";
+import rootReducer from "./redux/reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(
