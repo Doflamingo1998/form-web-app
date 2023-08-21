@@ -67,18 +67,8 @@ export const checkAuthStatus = () => {
 export const registerUser = (registration) => {
   return async (dispatch) => {
     try {
-      // {
-      //   "email": "quanle@gmail.com",
-      //   "password": "123456",
-      //   "name": "Quân Lê Haha",
-      //   "role": 2
-      // }
       await authAPI.register(registration);
-      // {
-      //   "data": true,
-      //   "message": "Register successfully",
-      //   "status": true
-      // }
+
       dispatch(registerSuccess());
       history.push("/login");
     } catch (error) {

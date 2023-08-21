@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { registerUser } from "../../redux/actions/authActions";
-
-// import { loginUser } from "../../redux/actions/authActions";
+import './Register.css';
+import { ToastContainer } from "react-toastify";
 
 
 const Register = ({ registerUser }) => {
@@ -24,43 +24,48 @@ const Register = ({ registerUser }) => {
 
   const handleRegister = (event) => {
     event.preventDefault();
-    registerUser({ email, password, name, role:2 });
+    registerUser({ email, password, name, role: 2 });
   };
 
   return (
     <div className="container">
-      <form >
-        <div>
-          <input
-            type="text"
-
-            placeholder="User name"
-            value={name}
-            onChange={handleUsernameChange}
-          />
+      <ToastContainer />
+      <div className="screen">
+        <div className="screen__content">
+          <form className="register" >
+            <div>
+              <input
+                type="text"
+                placeholder="User name"
+                className="register-input"
+                value={name}
+                onChange={handleUsernameChange}
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Email"
+                className="register-input"
+                value={email}
+                onChange={handleEmailChange}
+              />
+            </div>
+            <div >
+              <input
+                type="password"
+                placeholder="Password"
+                className="register-input"
+                value={password}
+                onChange={handlePasswordChange}
+              />
+            </div>
+            <button className="register-button" onClick={handleRegister} >
+              REGISTER
+            </button>
+          </form>
         </div>
-        <div>
-          <input
-            type="email"
-
-            placeholder="Email"
-            value={email}
-            onChange={handleEmailChange}
-          />
-        </div>
-        <div >
-          <input
-            type="password"
-
-            placeholder="Password"
-            value={password}
-            onChange={handlePasswordChange}
-          />
-        </div>
-        <button onClick={handleRegister} >
-          Register
-        </button>
-      </form>
+      </div>
     </div>
 
   );
