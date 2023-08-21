@@ -16,6 +16,19 @@ export const loginFailure = (error) => {
   };
 };
 
+export const registerSuccess = () => {
+  return {
+    type: types.REGISTER_SUCCESS,
+  }
+};
+
+export const registerFailure = (error) => {
+  return {
+    type: types.REGISTER_FAILURE,
+    payload: error
+  }
+};
+
 export const loginUser = (credentials) => {
   return async (dispatch) => {
     try {
@@ -47,6 +60,29 @@ export const checkAuthStatus = () => {
       }
     } else {
       dispatch(loginFailure("Token not found"));
+    }
+  };
+};
+
+export const registerUser = (registration) => {
+  return async (dispatch) => {
+    try {
+      // {
+      //   "email": "quanle@gmail.com",
+      //   "password": "123456",
+      //   "name": "Quân Lê Haha",
+      //   "role": 2
+      // }
+      await authAPI.register(registration);
+      // {
+      //   "data": true,
+      //   "message": "Register successfully",
+      //   "status": true
+      // }
+      dispatch(registerSuccess());
+      history.push("/login");
+    } catch (error) {
+      dispatch(registerFailure(error));
     }
   };
 };

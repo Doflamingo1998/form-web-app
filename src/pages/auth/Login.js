@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { loginUser } from "../../redux/actions/authActions";
 import "./Login.css";
+import { NavLink } from "react-router-dom";
 
 const Login = ({ loginUser }) => {
   const [email, setUsername] = useState("");
@@ -48,6 +49,7 @@ const Login = ({ loginUser }) => {
               <span className="button__text">Log In Now</span>
               <i className="button__icon fas fa-chevron-right"></i>
             </button>
+            <div>Have no account? <NavLink to="/register">Register</NavLink></div>
           </form>
         </div>
       </div>
