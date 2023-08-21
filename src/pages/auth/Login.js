@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../redux/actions/authActions";
 import "./Login.css";
 import { NavLink } from "react-router-dom";
 
-const Login = ({ loginUser }) => {
+const Login = ({ loginUser, isAuthenticated }) => {
   const [email, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,12 +18,44 @@ const Login = ({ loginUser }) => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = (event) => {
+  const handleLogin = async (event) => {
     event.preventDefault();
-    loginUser({ email, password });
+    try {
+      await loginUser({ email, password });
+
+      if (isAuthenticated) {
+        toast.success("Login successful!", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+      } else {
+        toast.error("Login failed. Please check your credentials.", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+      }
+    } catch (error) {
+      toast.error("An error occurred while logging in.", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
+    }
   };
   return (
     <div className="container">
+      <ToastContainer />
       <div className="screen">
         <div className="screen__content">
           <form className="login">
@@ -57,8 +91,12 @@ const Login = ({ loginUser }) => {
   );
 };
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.isAuthenticated
+});
+
 const mapDispatchToProps = {
   loginUser
 };
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

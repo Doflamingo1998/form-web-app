@@ -8,10 +8,6 @@ const Header = ({ userName }) => {
       <div className="user-info">
         {userName ? `Welcome, ${userName}` : "Welcome"}
       </div>
-      <div className="search-bar">
-        <input type="text" placeholder="Search surveys..." />
-        <button>Search</button>
-      </div>
     </header>
   );
 };

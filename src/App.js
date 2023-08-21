@@ -12,7 +12,6 @@ import Home from "./pages/home";
 import Register from "./pages/register";
 
 const App = ({ isAuthenticated }) => {
-  console.log("authen ", isAuthenticated);
   return (
     <Router>
       <Switch>
