@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { registerUser } from "../../redux/actions/authActions";
 import './Register.css';
+import { useHistory } from 'react-router-dom'
 import { ToastContainer } from "react-toastify";
-
 
 const Register = ({ registerUser }) => {
   const [name, setUsername] = useState("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -25,6 +27,7 @@ const Register = ({ registerUser }) => {
   const handleRegister = (event) => {
     event.preventDefault();
     registerUser({ email, password, name, role: 2 });
+    history.push('/login');
   };
 
   return (

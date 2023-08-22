@@ -39,6 +39,14 @@ export const authAPI = {
     } catch (error) {
       throw error;
     }
+  },
+  register: async (registration) => {
+    try {
+      const response = await instance.post(apiEndpoints.register, registration);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

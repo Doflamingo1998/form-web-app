@@ -25,7 +25,7 @@ const App = ({ isAuthenticated }) => {
           {isAuthenticated ? <Home /> : <Redirect to="/login" />}
         </Route>
         <Route path="/register">
-          { <Register /> }
+          <Register />
         </Route>
       </Switch>
     </Router>
