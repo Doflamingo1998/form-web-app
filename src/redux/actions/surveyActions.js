@@ -49,3 +49,27 @@ export const listSurvey = () => {
     }
   };
 };
+
+export const deleteSurveySuccess = () => {
+  return {
+    type: types.DELETE_SURVEY_SUCCESS
+  };
+};
+
+export const deleteSurveyFailure = (error) => {
+  return {
+    type: types.DELETE_SURVEY_FAILURE,
+    payload: error
+  };
+};
+
+export const deleteSurvey = (surveyId) => {
+  return async (dispatch) => {
+    try {
+      await surveyAPI.deleteSurvey(surveyId);
+      dispatch(deleteSurveySuccess());
+    } catch (error) {
+      dispatch(deleteSurveyFailure(error));
+    }
+  };
+};
