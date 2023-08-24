@@ -27,7 +27,7 @@ const Register = ({ registerUser }) => {
   };
 
   const isNameValid = (name) => {
-    const nameRegex = /^[a-z0-9_-]{3,16}$/;
+    const nameRegex = /^[a-zA-Z0-9_-]$/;
     return nameRegex.test(name);
   };
 
@@ -37,7 +37,7 @@ const Register = ({ registerUser }) => {
   };
 
   const isPasswordValid = (password) => {
-    const passwordRegex = /^[a-z0-9_-]{3,16}$/;
+    const passwordRegex = /^[a-zA-Z0-9_-]$/;
     return passwordRegex.test(password);
   };
 
