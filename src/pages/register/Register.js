@@ -5,7 +5,7 @@ import './Register.css';
 import { useHistory } from 'react-router-dom'
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import UserRole from "../../constants/userRoles";
 
 const Register = ({ registerUser }) => {
   const [name, setUsername] = useState("");
@@ -26,34 +26,58 @@ const Register = ({ registerUser }) => {
     setPassword(event.target.value);
   };
 
+  const isNameValid = (name) => {
+    const nameRegex = /^[a-z0-9_-]{3,16}$/;
+    return nameRegex.test(name);
+  };
+
+  const isEmailValid = (email) => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  };
+
+  const isPasswordValid = (password) => {
+    const passwordRegex = /^[a-z0-9_-]{3,16}$/;
+    return passwordRegex.test(password);
+  };
+
   const handleRegister = async (event) => {
     event.preventDefault();
-    registerUser({ email, password, name, role: 2 });
-    history.push('/login');
+    if (!isNameValid(name)) {
+      toast.error("Tên không hợp lệ", {autoClose: 3000 });
+    }
 
-    // try {
-    //   await registerUser({ email, password, name, role: 2 });
+    if (!isEmailValid(email)) {
+      toast.error("Vui lòng nhập email hợp lệ!", { autoClose: 3000 });
+      return;
+    }
 
-    //   if () {
-    //     toast.error("Register failed. Please check your syntax.", {
-    //       position: toast.POSITION.TOP_RIGHT,
-    //       autoClose: 3000,
-    //       hideProgressBar: false,
-    //       closeOnClick: true,
-    //       pauseOnHover: true,
-    //       draggable: true
-    //     });
-    //   }
-    // } catch (error) {
-    //   toast.error("An error occurred while logging in.", {
-    //     position: toast.POSITION.TOP_RIGHT,
-    //     autoClose: 3000,
-    //     hideProgressBar: false,
-    //     closeOnClick: true,
-    //     pauseOnHover: true,
-    //     draggable: true
-    //   });
-    // }
+    if (!isPasswordValid(password)) {
+      toast.error("Mật khẩu không hợp lệ!", { autoClose: 3000 });
+      return;
+    }
+    
+    try {
+      await registerUser({ email, password, name, role: UserRole.USER });
+          toast.success("Success", {
+          position: toast.POSITION.TOP_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true
+        });
+        history.push('/login');
+    } catch (error) {
+      toast.error("Register failed. Your syntax have mistake or this email is already registered.", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true
+      });
+    }
   };
 
   return (
