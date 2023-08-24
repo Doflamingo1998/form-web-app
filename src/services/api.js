@@ -11,6 +11,8 @@ const instance = axios.create({
 const apiEndpoints = {
   login: "/auth/login",
   validateToken: "/validate-token",
+  createAndListSurvey: "/surveys",
+  register: "/auth/register",
   survey: "/surveys"
 };
 
@@ -34,6 +36,14 @@ export const authAPI = {
           }
         }
       );
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  register: async (registration) => {
+    try {
+      const response = await instance.post(apiEndpoints.register, registration);
       return response.data;
     } catch (error) {
       throw error;

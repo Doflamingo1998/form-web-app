@@ -3,7 +3,7 @@ import * as types from "../actions/types";
 const initialState = {
   user: null,
   isAuthenticated: false,
-  error: null
+  error: null,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -19,6 +19,8 @@ const authReducer = (state = initialState, action) => {
       return { ...state, isAuthenticated: false, error: action.payload };
     case types.LOGOUT:
       return { ...state, user: null, isAuthenticated: false, error: null };
+    case types.REGISTER_FAILURE:
+      return { ...state, error: action.payload };
     default:
       return state;
   }

@@ -17,6 +17,20 @@ export const loginFailure = (error) => {
   };
 };
 
+export const registerSuccess = () => {
+  return {
+    type: types.REGISTER_SUCCESS,
+  }
+};
+
+export const registerFailure = (error) => {
+  return {
+    type: types.REGISTER_FAILURE,
+    payload: error
+  }
+};
+
+
 export const loginUser = (credentials) => {
   return async (dispatch) => {
     try {
@@ -59,3 +73,17 @@ export const logoutUser = () => {
     history.push("/login");
   };
 };
+
+export const registerUser = (registration) => {
+  return async (dispatch) => {
+    try {
+      await authAPI.register(registration);
+
+      dispatch(registerSuccess());
+      history.push("/login");
+    } catch (error) {
+      dispatch(registerFailure(error));
+    }
+  };
+};
+
