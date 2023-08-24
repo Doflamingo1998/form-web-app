@@ -9,3 +9,35 @@
 .user-info {
   font-weight: bold;
 }
+
+.btn {
+  font: inherit;
+  border: 1px solid #4f005f;
+  background: #4f005f;
+  color: white;
+  padding: 0.75rem 3.5rem;
+  cursor: pointer;
+  border-radius: 30px;
+  position: relative;
+  left: 910px;
+}
+
+.btn:hover,
+.btn:active {
+  background: #741188;
+  border-color: #741188;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:disabled,
+.btn:focus:disabled,
+.btn:hover:disabled,
+.btn:active:disabled {
+  background: #ccc;
+  border-color: #ccc;
+  color: #666666;
+  cursor: not-allowed;
+}
