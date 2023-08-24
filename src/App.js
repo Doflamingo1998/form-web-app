@@ -9,6 +9,7 @@ import {
 import "./App.css";
 import Login from "./pages/auth";
 import Home from "./pages/home";
+import Register from "./pages/register";
 
 const App = ({ isAuthenticated }) => {
   return (
@@ -22,6 +23,9 @@ const App = ({ isAuthenticated }) => {
         </Route>
         <Route path="/dashboard">
           {isAuthenticated ? <Home /> : <Redirect to="/login" />}
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
       </Switch>
     </Router>

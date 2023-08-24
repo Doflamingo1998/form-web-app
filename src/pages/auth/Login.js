@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { loginUser } from "../../redux/actions/authActions";
 import "./Login.css";
+import { NavLink } from "react-router-dom";
 
 const Login = ({ loginUser, isAuthenticated }) => {
   const [email, setUsername] = useState("");
@@ -73,6 +74,7 @@ const Login = ({ loginUser, isAuthenticated }) => {
               <span className="button__text">Log In Now</span>
               <i className="button__icon fas fa-chevron-right"></i>
             </button>
+            <p className="register-0">Have no account? <NavLink to="/register">Register</NavLink></p>
           </form>
         </div>
       </div>
