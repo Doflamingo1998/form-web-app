@@ -59,17 +59,9 @@ const Register = ({ registerUser }) => {
     
     try {
       await registerUser({ email, password, name, role: UserRole.USER });
-          toast.success("Success", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true
-        });
         history.push('/login');
     } catch (error) {
-      toast.error("Register failed. Your syntax have mistake or this email is already registered.", {
+      toast.error(`Register failed. Error: ${error}`, {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 3000,
         hideProgressBar: false,
