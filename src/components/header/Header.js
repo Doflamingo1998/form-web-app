@@ -1,17 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import { connect } from "react-redux";
 import "./Header.css";
-import Logout from "../../pages/logout/Logout";
+import HeaderMenu from "../headerMenu";
+
 
 const Header = ({ userName }) => {
-
 
   return (
     <header className="header">
       <div className="user-info">
         {userName ? `Welcome, ${userName}` : "Welcome"}
-        <Logout />
       </div>
+      <HeaderMenu />
     </header>
   );
 };

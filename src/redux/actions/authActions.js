@@ -35,9 +35,8 @@ export const loginUser = (credentials) => {
   return async (dispatch) => {
     try {
       const response = await authAPI.login(credentials);
-      const { token } = response.data;
+      const { token, name, email, role } = response.data;
       localStorage.setItem("token", token);
-      const { name, email, role } = response.data;
       const user = { name, email, role };
       dispatch(loginSuccess(user));
       history.push("/dashboard");

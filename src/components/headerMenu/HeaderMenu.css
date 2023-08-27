@@ -1,0 +1,43 @@
+.dropdown {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.menu-icon {
+  cursor: pointer;
+  position: absolute;
+  margin-left: -33px;
+  margin-top: -16px;
+}
+
+.menu-icon .icon-2 {
+  margin-left: -9px;
+  margin-top: 6px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  bottom: -147px;
+  right: 0px;
+  background-color: #f9f9f9;
+  min-width: 300px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background: #741188;
+}
+
+.dropdown.active .dropdown-content {
+  display: block;
+}

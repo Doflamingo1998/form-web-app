@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { logoutUser } from "../../redux/actions/authActions"
-import './Logout.css';
+import { logoutUser } from "../../redux/actions/authActions";
 
 const Logout = ({ logoutUser }) => {
     const handleLogout = () => {
@@ -9,9 +8,9 @@ const Logout = ({ logoutUser }) => {
     };
 
     return (
-        <button className="btn" onClick={handleLogout}>
+        <div className="btn" onClick={handleLogout}>
             LOG OUT
-        </button>
+        </div>
     );
 };
 
