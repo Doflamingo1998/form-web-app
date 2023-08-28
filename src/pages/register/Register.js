@@ -77,7 +77,7 @@ const Register = ({ registerUser }) => {
       toast.success("Đăng ký thành công", {autoClose: 2000});
       setTimeout(() => {
         history.push('/login');
-      }, 2000);
+      }, 3000);
     }
   }, [isRegisteredSuccess]);
 

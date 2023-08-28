@@ -9,6 +9,10 @@ const HeaderMenu = () => {
         setIsMenuOpen(!isMenuOpen);
     };
 
+    const closeMenu = () => {
+        setIsMenuOpen(false);
+    };
+
     return (
         <div className={`dropdown ${isMenuOpen ? 'active' : ''}`}>
             <div className="menu-icon" onClick={toggleMenu}>
@@ -20,7 +24,7 @@ const HeaderMenu = () => {
             </div>
             {isMenuOpen && (
                 <div className="dropdown-content">
-                    <div><Logout /></div>
+                    <div><Logout onCloseMenu={closeMenu}/></div>
                     <div>Mục 2</div>
                     <div>Mục 3</div>
                 </div>

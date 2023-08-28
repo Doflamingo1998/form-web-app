@@ -1,16 +1,49 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
+import Modal from "react-modal";
 import { connect } from "react-redux";
 import { logoutUser } from "../../redux/actions/authActions";
 
-const Logout = ({ logoutUser }) => {
+const Logout = ({ logoutUser, onCloseMenu }) => {
     const handleLogout = () => {
-      logoutUser();
+        logoutUser();
+        closeModal();
+    };
+
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+
+    const openModal = () => {
+        onCloseMenu();
+        setModalIsOpen(true);
+    };
+
+    const closeModal = () => {
+        setModalIsOpen(false);
     };
 
     return (
-        <div className="btn" onClick={handleLogout}>
-            LOG OUT
-        </div>
+        <Fragment>
+            <div onClick={openModal}>Log out</div>
+            <Modal
+                isOpen={modalIsOpen}
+                onRequestClose={closeModal}
+                ariaHideApp={false}
+                className="modal"
+                overlayClassName="overlay"
+            >
+                <div className="modal__close" onClick={closeModal}>
+                    &times;
+                </div>
+                <h2 className="modal__title">Do you really want to log out?</h2>
+                <div className="modal__buttons">
+                    <button className="modal__button cancel" onClick={closeModal}>
+                        No
+                    </button>
+                    <button className="modal__button submit" onClick={handleLogout}>
+                        Yes
+                    </button>
+                </div>
+            </Modal>
+        </Fragment>
     );
 };
 
