@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import './HeaderMenu.css';
 import Logout from "../../pages/logout";
 
-const HeaderMenu = ({ }) => {
+const HeaderMenu = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -20,9 +20,9 @@ const HeaderMenu = ({ }) => {
             </div>
             {isMenuOpen && (
                 <div className="dropdown-content">
-                    <a><Logout /></a>
-                    <a href="#">Mục 2</a>
-                    <a href="#">Mục 3</a>
+                    <div><Logout /></div>
+                    <div>Mục 2</div>
+                    <div>Mục 3</div>
                 </div>
             )}
         </div>
