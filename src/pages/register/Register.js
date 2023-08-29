@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { connect, useSelector } from "react-redux";
 import { registerUser } from "../../redux/actions/authActions";
 import './Register.css';
 import { useHistory } from 'react-router-dom'
@@ -11,6 +11,7 @@ const Register = ({ registerUser }) => {
   const [name, setUsername] = useState("");
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState("");
+  const { isRegisteredSuccess } = useSelector((state) => state.auth);
 
   const history = useHistory();
 
@@ -27,7 +28,7 @@ const Register = ({ registerUser }) => {
   };
 
   const isNameValid = (name) => {
-    const nameRegex = /^[a-zA-Z0-9_-]$/;
+    const nameRegex = /^[a-zA-Z0-9_.-]*$/;
     return nameRegex.test(name);
   };
 
@@ -37,7 +38,7 @@ const Register = ({ registerUser }) => {
   };
 
   const isPasswordValid = (password) => {
-    const passwordRegex = /^[a-zA-Z0-9_-]$/;
+    const passwordRegex = /^[a-zA-Z0-9_.-]*$/;
     return passwordRegex.test(password);
   };
 
@@ -59,7 +60,6 @@ const Register = ({ registerUser }) => {
     
     try {
       await registerUser({ email, password, name, role: UserRole.USER });
-        history.push('/login');
     } catch (error) {
       toast.error(`Register failed. Error: ${error}`, {
         position: toast.POSITION.TOP_RIGHT,
@@ -71,6 +71,15 @@ const Register = ({ registerUser }) => {
       });
     }
   };
+
+  useEffect(() => {
+    if (isRegisteredSuccess) {
+      toast.success("Đăng ký thành công", {autoClose: 2000});
+      setTimeout(() => {
+        history.push('/login');
+      }, 3000);
+    }
+  }, [isRegisteredSuccess]);
 
   return (
     <div className="container">

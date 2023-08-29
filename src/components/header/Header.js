@@ -1,13 +1,17 @@
 import React from "react";
 import { connect } from "react-redux";
 import "./Header.css";
+import HeaderMenu from "../headerMenu";
+
 
 const Header = ({ userName }) => {
+
   return (
     <header className="header">
       <div className="user-info">
         {userName ? `Welcome, ${userName}` : "Welcome"}
       </div>
+      <HeaderMenu />
     </header>
   );
 };
