@@ -65,11 +65,34 @@ export const checkAuthStatus = () => {
   };
 };
 
+export const logoutSuccess = () => {
+  return {
+    type: types.LOGOUT_SUCCESS,
+  }
+};
+
+export const logoutFailure = (error) => {
+  return {
+    type: types.LOGOUT_FAILURE,
+    payload: error
+  }
+};
+
 export const logoutUser = () => {
-  return (dispatch) => {
-    localStorage.removeItem("token");
-    dispatch({ type: types.LOGOUT });
-    history.push("/login");
+  return async (dispatch) => {
+    try {
+      const storedToken = localStorage.getItem("token");
+
+      if (storedToken) {
+        await authAPI.logout(storedToken);
+        localStorage.removeItem("token");
+        dispatch(logoutSuccess());
+        history.push("/login");
+      }
+
+    } catch (error) {
+      dispatch(loginFailure(error));
+    }
   };
 };
 

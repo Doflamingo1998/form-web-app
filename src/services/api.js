@@ -13,7 +13,8 @@ const apiEndpoints = {
   validateToken: "/validate-token",
   createAndListSurvey: "/surveys",
   register: "/auth/register",
-  survey: "/surveys"
+  survey: "/surveys",
+  logout: "/logout",
 };
 
 export const authAPI = {
@@ -44,6 +45,18 @@ export const authAPI = {
   register: async (registration) => {
     try {
       const response = await instance.post(apiEndpoints.register, registration);
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  logout: async (token) => {
+    try {
+      const response = await instance.post(apiEndpoints.logout, {}, {
+        headers: {
+          Authorization: `${token}`
+        }
+      });
       return response.data;
     } catch (error) {
       throw error;
