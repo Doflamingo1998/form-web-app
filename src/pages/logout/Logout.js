@@ -1,30 +1,27 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
 import { logoutUser } from "../../redux/actions/authActions";
 
-const Logout = ({ logoutUser, onCloseMenu }) => {
+const Logout = ({ logoutUser, onCloseMenu, isLogoutOpen, onCloseLogout }) => {
     const handleLogout = () => {
         logoutUser();
         closeModal();
     };
 
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-
     const openModal = () => {
         onCloseMenu();
-        setModalIsOpen(true);
     };
 
     const closeModal = () => {
-        setModalIsOpen(false);
+        onCloseLogout();
     };
 
     return (
         <Fragment>
             <div onClick={openModal}>Log out</div>
             <Modal
-                isOpen={modalIsOpen}
+                isOpen={isLogoutOpen}
                 onRequestClose={closeModal}
                 ariaHideApp={false}
                 className="modal"
