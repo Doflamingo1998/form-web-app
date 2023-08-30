@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import Modal from "react-modal";
 import { connect } from "react-redux";
-import Logout from "../../pages/logout";
+import { NavLink } from "react-router-dom";
 import { logoutUser } from "../../redux/actions/authActions";
 import './HeaderMenu.css';
 
@@ -27,6 +27,11 @@ const HeaderMenu = ({ logoutUser }) => {
         setIsLogoutOpen(false);
     };
 
+    const headerMenuItems = [
+        { name: 'My Profile', link: '/profile' },
+        { name: 'Logout', link: '/logout' }
+    ];
+
     return (
         <Fragment>
             <div className={`dropdown ${isMenuOpen ? 'active' : ''}`}>
@@ -38,11 +43,11 @@ const HeaderMenu = ({ logoutUser }) => {
                     )}
                 </div>
                 {isMenuOpen && (
-                    <div className="dropdown-content">
-                        <div><Logout onCloseMenu={closeMenu} /></div>
-                        <div>Mục 2</div>
-                        <div>Mục 3</div>
-                    </div>
+                    <nav className="dropdown-content">
+                        {headerMenuItems.map((item) => (
+                            <NavLink to={item.link}>{item.name}</NavLink>
+                        ))}
+                    </nav>
                 )}
             </div>
 
