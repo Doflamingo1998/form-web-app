@@ -1,8 +1,10 @@
 import React, { Fragment, useState } from "react";
 import Modal from "react-modal";
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import Logout from "../../pages/logout";
 import { logoutUser } from "../../redux/actions/authActions";
+import ChangePass from "../../pages/changePass/ChangePass";
 import './HeaderMenu.css';
 
 const HeaderMenu = ({ logoutUser }) => {
@@ -40,7 +42,7 @@ const HeaderMenu = ({ logoutUser }) => {
                 {isMenuOpen && (
                     <div className="dropdown-content">
                         <div><Logout onCloseMenu={closeMenu} /></div>
-                        <div>Mục 2</div>
+                        <div><Link to="/change-password">Change Password</Link></div>
                         <div>Mục 3</div>
                     </div>
                 )}

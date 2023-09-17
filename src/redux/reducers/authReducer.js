@@ -14,6 +14,7 @@ const authReducer = (state = initialState, action) => {
         ...state,
         user: action.payload,
         isAuthenticated: true,
+        isChangePasswordSuccess: false,
         error: null
       };
     case types.LOGIN_FAILURE:
@@ -29,6 +30,14 @@ const authReducer = (state = initialState, action) => {
       }
     case types.REGISTER_FAILURE:
       return { ...state, error: action.payload, isRegisteredSuccess: false };
+    case types.CHANGE_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
+        isChangePasswordSuccess: true
+      };
+    case types.CHANGE_PASSWORD_FAILURE:
+      return { ...state, user: action.payload, error: action.payload, isChangePasswordSuccess: false };
     default:
       return state;
   }
