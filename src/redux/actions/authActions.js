@@ -109,3 +109,24 @@ export const registerUser = (registration) => {
   };
 };
 
+export const changePasswordSuccess = () => ({
+  type: types.CHANGE_PASSWORD_SUCCESS,
+});
+
+export const changePasswordFailure = (error) => ({
+  type: types.CHANGE_PASSWORD_FAILURE,
+  payload: error,
+});
+
+export const changePassword = (currentPassword, newPassword) => {
+  return async (dispatch) => {
+    try {
+      
+      await authAPI.changePassword(currentPassword, newPassword);
+
+      dispatch(changePasswordSuccess());
+    } catch (error) {
+      dispatch(changePasswordFailure(error));
+    }
+  };
+};

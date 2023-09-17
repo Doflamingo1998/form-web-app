@@ -10,6 +10,7 @@ import "./App.css";
 import Login from "./pages/auth";
 import Home from "./pages/home";
 import Register from "./pages/register";
+import ChangePass from "./pages/changePass";
 
 const App = ({ isAuthenticated }) => {
   return (
@@ -26,6 +27,9 @@ const App = ({ isAuthenticated }) => {
         </Route>
         <Route path="/register">
           <Register />
+        </Route>
+        <Route path="/change-password">
+          {isAuthenticated ? <ChangePass /> : <Redirect to="/login" />}
         </Route>
       </Switch>
     </Router>

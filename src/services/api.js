@@ -15,6 +15,7 @@ const apiEndpoints = {
   register: "/auth/register",
   survey: "/surveys",
   logout: "/logout",
+  changePassword: "/change-password",
 };
 
 export const authAPI = {
@@ -57,6 +58,22 @@ export const authAPI = {
           Authorization: `${token}`
         }
       });
+      return response.data;
+    } catch (error) {
+      throw error;
+    }
+  },
+  changePassword: async (currentPassword, newPassword, token) => {
+    try {
+      const response = await instance.put(
+        apiEndpoints.changePassword, 
+        { currentPassword, newPassword },
+        {
+          headers: {
+            Authorization: `${token}`
+          }
+        }
+      );
       return response.data;
     } catch (error) {
       throw error;
